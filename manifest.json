@@ -1,15 +1,21 @@
 {
-    "name": "Oxford Vocabulary App",
-    "short_name": "Vocabulary",
-    "start_url": "index.html",
-    "display": "standalone",
-    "background_color": "#0b1021",
-    "theme_color": "#0b1021",
-    "icons": [
-        {
-            "src": "icon.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        }
-    ]
+  "name": "Nahid Vocab",
+  "short_name": "Vocab",
+  "description": "A vocabulary learning app to improve English words.",
+  "start_url": "/Nahid-vocab/",
+  "display": "standalone",
+  "background_color": "#0b1021",
+  "theme_color": "#fbc02d",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/nahid-vocab/Nahid-vocab/main/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/nahid-vocab/Nahid-vocab/main/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
