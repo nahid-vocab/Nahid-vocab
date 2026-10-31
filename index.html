@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oxford Vocabulary App</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0b1021">
+</head>
+<body>
+
+    <!-- ================= হোম স্ক্রিন ================= -->
+    <section id="homeScreen">
+        <header class="top-bar profile-header">
+            <div class="user-info">
+                <div class="avatar"><span class="material-icons-round">person</span></div>
+                <div>
+                    <h3>Nahid Hasan</h3>
+                    <p>প্রতিদিন একটি করে শব্দ শিখুন</p>
+                </div>
+            </div>
+            <div class="settings-icon" onclick="toggleThemeMenu()">
+                <span class="material-icons-round">settings</span>
+            </div>
+        </header>
+
+        <div id="themeMenu" class="theme-menu glass-effect">
+            <p>থিম পরিবর্তন করুন</p>
+            <div class="theme-options">
+                <button onclick="setTheme('dark')">🌙 ডার্ক</button>
+                <button onclick="setTheme('light')">☀️ লাইট</button>
+                <button onclick="setTheme('sepia')">📖 সেপিয়া</button>
+            </div>
+        </div>
+
+        <main class="home-content">
+            <!-- হলুদ কার্ড -->
+            <div class="yellow-card">
+                <div class="card-left">
+                    <span class="material-icons-round icon-big">menu_book</span>
+                    <div>
+                        <p class="card-title">মোট শেখা শব্দ</p>
+                        <h1 id="totalLearned">0</h1>
+                    </div>
+                </div>
+                <div class="card-right">
+                    <p class="card-title">Oxford 3000™</p>
+                    <h3>6.6%</h3>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 6.6%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- স্ট্রিক কার্ড -->
+            <div class="info-cards-row">
+                <div class="info-card dark-card glass-effect">
+                    <p class="small-title">CONTINUOUS LEARNING</p>
+                    <h3>2 দিনের স্ট্রিক 🔥</h3>
+                    <p class="sub-text">গত 1 দিন সক্রিয় ছিলেন</p>
+                    <div class="circle-progress">
+                        <span>2</span>
+                        <small>days</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- লেভেল ভিত্তিক অগ্রগতি -->
+            <div class="info-card glass-effect" style="margin-bottom: 20px; display: block; padding: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3 style="font-size: 18px; color: var(--primary-yellow);">লেভেল ভিত্তিক অগ্রগতি</h3>
+                    <span class="material-icons-round" style="color: var(--primary-yellow); font-size: 28px;">insights</span>
+                </div>
+                
+                <!-- A1 -->
+                <div class="level-block">
+                    <span class="level-name">A1</span>
+                    <div class="level-progress-container">
+                        <div class="progress-bar-bg full-width-bar"><div class="progress-bar-fill" id="progA1" style="width: 0%;"></div></div>
+                        <span class="level-count" id="countA1">0/0</span>
+                    </div>
+                    <div class="level-actions">
+                        <button class="mini-btn learned" onclick="filterAndGo('A1', 'learned')">✓</button>
+                        <button class="mini-btn not-learned" onclick="filterAndGo('A1', 'not-learned')">✗</button>
+                    </div>
+                </div>
+
+                <!-- A2 -->
+                <div class="level-block">
+                    <span class="level-name">A2</span>
+                    <div class="level-progress-container">
+                        <div class="progress-bar-bg full-width-bar"><div class="progress-bar-fill" id="progA2" style="width: 0%;"></div></div>
+                        <span class="level-count" id="countA2">0/0</span>
+                    </div>
+                    <div class="level-actions">
+                        <button class="mini-btn learned" onclick="filterAndGo('A2', 'learned')">✓</button>
+                        <button class="mini-btn not-learned" onclick="filterAndGo('A2', 'not-learned')">✗</button>
+                    </div>
+                </div>
+
+                <!-- B1 -->
+                <div class="level-block">
+                    <span class="level-name">B1</span>
+                    <div class="level-progress-container">
+                        <div class="progress-bar-bg full-width-bar"><div class="progress-bar-fill" id="progB1" style="width: 0%;"></div></div>
+                        <span class="level-count" id="countB1">0/0</span>
+                    </div>
+                    <div class="level-actions">
+                        <button class="mini-btn learned" onclick="filterAndGo('B1', 'learned')">✓</button>
+                        <button class="mini-btn not-learned" onclick="filterAndGo('B1', 'not-learned')">✗</button>
+                    </div>
+                </div>
+
+                <!-- B2 -->
+                <div class="level-block">
+                    <span class="level-name">B2</span>
+                    <div class="level-progress-container">
+                        <div class="progress-bar-bg full-width-bar"><div class="progress-bar-fill" id="progB2" style="width: 0%;"></div></div>
+                        <span class="level-count" id="countB2">0/0</span>
+                    </div>
+                    <div class="level-actions">
+                        <button class="mini-btn learned" onclick="filterAndGo('B2', 'learned')">✓</button>
+                        <button class="mini-btn not-learned" onclick="filterAndGo('B2', 'not-learned')">✗</button>
+                    </div>
+                </div>
+
+                <!-- C1 -->
+                <div class="level-block">
+                    <span class="level-name">C1</span>
+                    <div class="level-progress-container">
+                        <div class="progress-bar-bg full-width-bar"><div class="progress-bar-fill" id="progC1" style="width: 0%;"></div></div>
+                        <span class="level-count" id="countC1">0/0</span>
+                    </div>
+                    <div class="level-actions">
+                        <button class="mini-btn learned" onclick="filterAndGo('C1', 'learned')">✓</button>
+                        <button class="mini-btn not-learned" onclick="filterAndGo('C1', 'not-learned')">✗</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+
+    <!-- ================= শব্দের তালিকা স্ক্রিন ================= -->
+    <section id="wordsScreen" style="display: none;">
+        <div class="sticky-header">
+            <header class="top-bar">
+                <div class="logo">Ox</div>
+                <h2>Words</h2>
+                <div class="profile">
+                    <span class="material-icons-round">person</span>
+                </div>
+            </header>
+
+            <div class="search-container glass-effect">
+                <span class="material-icons-round search-icon">search</span>
+                <input type="text" id="searchInput" placeholder="Exploring Oxford 3000...">
+            </div>
+
+            <div class="alphabet-filter">
+                <button class="active" onclick="filterByLevel('All', this)">All</button>
+                <button onclick="filterByLevel('A1', this)">A1</button>
+                <button onclick="filterByLevel('A2', this)">A2</button>
+                <button onclick="filterByLevel('B1', this)">B1</button>
+                <button onclick="filterByLevel('B2', this)">B2</button>
+                <button onclick="filterByLevel('C1', this)">C1</button>
+            </div>
+        </div>
+
+        <main id="wordList">
+            <p style="text-align:center; color:#8b93a5; margin-top:20px;">ডেটা লোড হচ্ছে...</p>
+        </main>
+    </section>
+
+    <!-- ================= ফ্ল্যাশকার্ড স্ক্রিন ================= -->
+    <section id="flashcardScreen" style="display: none;">
+        <header class="top-bar">
+            <div class="logo">Ox</div>
+            <h2>Flashcards</h2>
+            <div class="profile"><span class="material-icons-round">person</span></div>
+        </header>
+
+        <div class="flashcard-container">
+            <div class="flashcard" id="flashcard" onclick="flipCard()">
+                <div class="flashcard-front glass-effect">
+                    <span class="card-label">Word</span>
+                    <h1 id="fcEnglish">Loading...</h1>
+                    <button class="audio-btn-fc" onclick="event.stopPropagation(); playAudio(document.getElementById('fcEnglish').innerText)"><span class="material-icons-round">volume_up</span> Pronounce</button>
+                    <p class="tap-hint">অর্থ দেখতে কার্ডে ট্যাপ করুন</p>
+                </div>
+                <div class="flashcard-back">
+                    <span class="card-label">Meaning</span>
+                    <h2 id="fcBangla">Loading...</h2>
+                    <p id="fcSentence" class="sentence-text"></p>
+                    <p id="fcBanglaSentence" class="sentence-text bangla-sentence"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- এখানে আইকনগুলোতে ক্লাস এবং আইডি যোগ করা হয়েছে -->
+        <div class="flashcard-action-buttons">
+            <button id="btnNotLearned" class="action-btn not-learned" onclick="toggleFlashcardStatus(false)">
+                <span class="material-icons-round btn-icon" id="iconNotLearned">close</span> 
+                শেখা হয়নি
+            </button>
+            <button id="btnLearned" class="action-btn learned" onclick="toggleFlashcardStatus(true)">
+                <span class="material-icons-round btn-icon" id="iconLearned">check</span> 
+                শেখা হয়েছে
+            </button>
+        </div>
+
+        <div class="flashcard-controls">
+            <button onclick="prevCard()" class="control-btn glass-effect"><span class="material-icons-round">arrow_back</span> Previous</button>
+            <button onclick="nextCard()" class="control-btn glass-effect">Next <span class="material-icons-round">arrow_forward</span></button>
+        </div>
+    </section>
+
+    <!-- ================= কুইজ স্ক্রিন ================= -->
+    <section id="quizScreen" style="display: none;">
+        <header class="top-bar">
+            <div class="logo">Ox</div>
+            <h2>Quiz</h2>
+            <div class="score-board glass-effect">
+                Score: <span id="score">0</span>
+            </div>
+        </header>
+
+        <div class="quiz-container">
+            <div class="quiz-card glass-effect">
+                <p class="quiz-label">What is the meaning of:</p>
+                <h1 id="quizWord">Loading...</h1>
+            </div>
+
+            <div class="options-container" id="optionsContainer"></div>
+            
+            <button id="nextQuizBtn" class="main-btn" onclick="nextQuiz()" style="display: none;">Next Question</button>
+        </div>
+    </section>
+
+    <!-- ================= বটম নেভিগেশন বার ================= -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" id="navHome" onclick="switchTab('home')">
+            <span class="material-icons-round">home</span>
+            <span>HOME</span>
+        </a>
+        <a href="#" class="nav-item" id="navWords" onclick="switchTab('words')">
+            <span class="material-icons-round">menu_book</span>
+            <span>WORDS</span>
+        </a>
+        <a href="#" class="nav-item" id="navFlashcard" onclick="switchTab('flashcard')">
+            <span class="material-icons-round">style</span>
+            <span>FLASHCARD</span>
+        </a>
+        <a href="#" class="nav-item" id="navQuiz" onclick="switchTab('quiz')">
+            <span class="material-icons-round">quiz</span>
+            <span>QUIZ</span>
+        </a>
+    </nav>
+
+    <script src="script.js"></script>
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then(registration => console.log('Service Worker registered successfully'))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
+            });
+        }
+    </script>
+</body>
+</html>
