@@ -67,8 +67,8 @@ function switchTab(tabName) {
 
 // ১. ডেটা লোড (এখানে ফোল্ডারের নামসহ পাথ দেওয়া হলো)
 async function loadData() {
-    try {
-        const response = await fetch('Database/data.json');
+    try{
+        const response = await fetch('data.json');
         vocabularyData = await response.json();
         currentFlashcardData = vocabularyData;
         displayWords(vocabularyData);
