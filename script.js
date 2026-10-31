@@ -62,12 +62,12 @@ function switchTab(tabName) {
     if (tabName === 'flashcard') loadFlashcard();
     if (tabName === 'quiz') startQuiz();
     if (tabName === 'home') updateHomeStats();
-    if (tabName === 'words') displayWords(vocabularyData); // Words এ গেলে লিস্ট রিফ্রেশ হবে
+    if (tabName === 'words') displayWords(vocabularyData); 
 }
 
-// ১. ডেটা লোড (এখানে ফোল্ডারের নামসহ পাথ দেওয়া হলো)
+// ১. ডেটা লোড
 async function loadData() {
-    try{
+    try {
         const response = await fetch('data.json');
         vocabularyData = await response.json();
         currentFlashcardData = vocabularyData;
@@ -219,7 +219,10 @@ function filterByLevel(level, btnElement) {
         currentFlashcardData = vocabularyData.filter(item => item.level === level);
     }
     displayWords(currentFlashcardData);
+    
+    // ফিল্টার চেঞ্জ করলে কার্ড শুরু থেকে দেখাবে
     currentCardIndex = 0;
+    localStorage.setItem('lastFlashcardIndex', 0);
 }
 
 // ৫. চেকবক্স
@@ -244,6 +247,13 @@ function loadFlashcard() {
     if (currentFlashcardData.length === 0) currentFlashcardData = vocabularyData;
     if (currentFlashcardData.length === 0) return;
 
+    // সেভ করা কার্ড ইন্ডেক্স লোড করা (নতুন যোগ করা অংশ)
+    let savedIndex = localStorage.getItem('lastFlashcardIndex');
+    if (savedIndex !== null && currentFlashcardData.length > 0) {
+        currentCardIndex = parseInt(savedIndex);
+        if (currentCardIndex >= currentFlashcardData.length) currentCardIndex = 0;
+    }
+
     document.getElementById('flashcard').classList.remove('flipped');
     const currentWord = currentFlashcardData[currentCardIndex];
 
@@ -252,11 +262,9 @@ function loadFlashcard() {
     document.getElementById('fcSentence').innerText = currentWord.english_sentence || "";
     document.getElementById('fcBanglaSentence').innerText = currentWord.bangla_sentence || "";
 
-    // বাটনের স্টেট রিসেট করা
     document.getElementById('btnLearned').classList.remove('active-status');
     document.getElementById('btnNotLearned').classList.remove('active-status');
     
-    // নতুন কার্ডে আসার সময় আইকনগুলো লুকিয়ে ফেলা
     const iconNotLearned = document.getElementById('iconNotLearned');
     const iconLearned = document.getElementById('iconLearned');
     if(iconNotLearned) iconNotLearned.classList.remove('show');
@@ -277,7 +285,6 @@ function flipCard() {
     document.getElementById('flashcard').classList.toggle('flipped');
 }
 
-// এখানে ডেটা সেভ এবং আইকন দেখানোর লজিক একসাথে করা হয়েছে
 function toggleFlashcardStatus(isLearned) {
     currentFlashcardStatus = isLearned;
     
@@ -296,7 +303,6 @@ function toggleFlashcardStatus(isLearned) {
         if(iconLearned) iconLearned.classList.remove('show');
     }
 
-    // === নতুন যোগ করা অংশ: চাপার সাথে সাথেই ডেটা localStorage এ সেভ হবে ===
     if (currentFlashcardData.length > 0) {
         const currentWord = currentFlashcardData[currentCardIndex];
         let checkedWords = JSON.parse(localStorage.getItem('checkedWords')) || [];
@@ -309,7 +315,6 @@ function toggleFlashcardStatus(isLearned) {
 
         localStorage.setItem('checkedWords', JSON.stringify(checkedWords));
         
-        // হোম স্ক্রিনের কাউন্ট আপডেট করা
         if(typeof updateHomeStats === 'function') {
             updateHomeStats();
         }
@@ -336,12 +341,18 @@ function nextCard() {
     saveFlashcardStatusAndMove();
     if (currentCardIndex < currentFlashcardData.length - 1) currentCardIndex++;
     else currentCardIndex = 0;
+    
+    // পরবর্তী কার্ডে গেলে ইন্ডেক্স সেভ করা (নতুন যোগ করা অংশ)
+    localStorage.setItem('lastFlashcardIndex', currentCardIndex);
     loadFlashcard();
 }
 
 function prevCard() {
     saveFlashcardStatusAndMove();
     if (currentCardIndex > 0) currentCardIndex--;
+    
+    // পূর্ববর্তী কার্ডে গেলে ইন্ডেক্স সেভ করা (নতুন যোগ করা অংশ)
+    localStorage.setItem('lastFlashcardIndex', currentCardIndex);
     loadFlashcard();
 }
 
